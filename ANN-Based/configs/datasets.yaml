@@ -1,0 +1,218 @@
+# Dataset registry - single source for paths, class maps, and splits
+# base_dir is resolved from the UNCERTAINTY_DATA_ROOT environment variable by data/paths.py (falls back to this value if unset)
+
+
+
+# We tried to stick to the actual canonical splits.
+# Fo r the class info we referred to the actual dataset provider websites and the research papers
+
+base_dir: "/mnt/d/Krishna/Research/UncertaintyEstimation/Code/ANNCodeRefined"
+
+#These are compltely overridable per dataset
+feature_extraction:
+  default_radius: 0.25
+  num_threads: -1   # -1 = use all available cores
+
+datasets:
+
+  paris_lille:
+    description: "Paris-Lille-3D, 10-class benchmark (mobile LiDAR)"
+    raw_dir: "RawDatasets/ParisLille10Class"
+    processed_dir: "ProcessedData/paris_lille"
+    
+    # Notes :
+    # Raw file format is produced by exporting PLY/LAZ via CloudCompare to CSV
+    # Change raw_separator / raw_has_header to match the actual export setting
+    raw_extension: ".csv"
+    raw_has_header: true
+    raw_columns: [x, y, z, label]
+    drop_columns: []
+
+    files:
+      - Lille1_1
+      - Lille1_2
+      - Lille2
+      - Paris
+
+    # Canonical file based split
+    split:
+      strategy: file_based # or spatial_split for simple percentage wise split within tiles
+      train_files: [Lille1_1, Lille1_2, Lille2]
+      test_files: [Paris]
+
+    classes:
+      0: unclassified
+      1: ground
+      2: building
+      3: pole_road_sign_traffic_light
+      4: bollard_small_pole
+      5: trash_can
+      6: barrier
+      7: pedestrian
+      8: car
+      9: natural_vegetation
+
+    num_classes: 10
+    classes_excluded_from_metrics: [0]
+
+    feature_radii: [0.10, 0.15, 0.20, 0.25]
+    feature_radius: 0.25
+    columns_to_scale:
+      - x
+      - y
+      - z
+      - eigenvalue_sum
+      - omnivariance
+      - eigenentropy
+      - anisotropy
+      - planarity
+      - linearity
+      - PCA1
+      - PCA2
+      - surface_variation
+      - sphericity
+      - verticality
+      - nx
+      - ny
+      - nz
+
+  toronto3d:
+    description: "Toronto-3D (mobile LiDAR), 4 road sections"
+    raw_dir: "RawDatasets/Toronto"
+    processed_dir: "ProcessedData/toronto3d"
+    raw_extension: ".csv"
+    #raw_has_header: true
+    raw_has_header: false
+    raw_columns: [x, y, z, r, g, b, label]
+    drop_columns: [r, g, b]
+    files: [L001, L002, L003, L004]
+    split:
+      strategy: file_based
+      train_files: [L001, L002, L004]
+      test_files: [L003]
+    classes:
+      0: unclassified
+      1: road
+      2: road_marking
+      3: natural
+      4: building
+      5: utility_line
+      6: pole
+      7: car
+      8: fence
+    num_classes: 9
+    classes_excluded_from_metrics: [0]
+    feature_radii: [0.10, 0.15, 0.20, 0.25]
+    feature_radius: 0.25
+    columns_to_scale:
+      - x
+      - y
+      - z
+      - eigenvalue_sum
+      - omnivariance
+      - eigenentropy
+      - anisotropy
+      - planarity
+      - linearity
+      - PCA1
+      - PCA2
+      - surface_variation
+      - sphericity
+      - verticality
+      - nx
+      - ny
+      - nz
+
+  vaihingen:
+    description: "ISPRS Vaihingen 3D labeling benchmark (airborne LiDAR)"
+    raw_dir: "RawDatasets/Vaihingen"
+    processed_dir: "ProcessedData/vaihingen"
+    raw_extension: ".csv"
+    raw_has_header: false
+    raw_columns: [x, y, z, nx, ny, nz, label]
+    drop_columns: [nx, ny, nz]
+    files: [area2, area3]
+    split:
+      strategy: file_based
+      train_files: [area2]
+      test_files: [area3]
+    classes:
+        0: Powerline
+        1: LowVegetation
+        2: ImperviousSurfaces
+        3: Car
+        4: Fence/Hedge
+        5: Roof
+        6: Facade
+        7: Shrub
+        8: Tree
+    num_classes: 4
+    #Only 4 classes present in both Area 2 and Area 3
+    #2: impervious_surfaces
+    #1: low_vegetation
+    #5: fence_hedge
+    #8: trees
+    classes_excluded_from_metrics: []
+    feature_radii: [0.10, 0.15, 0.20, 0.25]
+    feature_radius: 0.25
+    columns_to_scale:
+      - x
+      - y
+      - z
+      - eigenvalue_sum
+      - omnivariance
+      - eigenentropy
+      - anisotropy
+      - planarity
+      - linearity
+      - PCA1
+      - PCA2
+      - surface_variation
+      - sphericity
+      - verticality
+      - nx
+      - ny
+      - nz
+
+  ahn3:
+    description: "AHN3 (airborne LiDAR), Netherlands"
+    raw_dir: "RawDatasets/AHN3"
+    processed_dir: "ProcessedData/ahn3"
+    raw_extension: ".csv"
+    raw_has_header: false
+    raw_columns: [x, y, z, r, g, b, label]
+    drop_columns: [r, g, b]
+    files: [28AN1_16,28AZ1_13,32CN2_11]
+    split:
+      strategy: file_based
+      train_files: [28AN1_16,28AZ1_13]
+      test_files: [32CN2_11]
+    classes:
+        0: NeverClassified
+        1: Vegetation 
+        2: Ground
+        6: Building
+        9: water
+        26: Reserved
+    num_classes: 5 #Except NeverClassified
+    classes_excluded_from_metrics: []
+    feature_radii: [0.10, 0.15, 0.20, 0.25]
+    feature_radius: 0.25
+    columns_to_scale:
+      - x
+      - y
+      - z
+      - eigenvalue_sum
+      - omnivariance
+      - eigenentropy
+      - anisotropy
+      - planarity
+      - linearity
+      - PCA1
+      - PCA2
+      - surface_variation
+      - sphericity
+      - verticality
+      - nx
+      - ny
+      - nz

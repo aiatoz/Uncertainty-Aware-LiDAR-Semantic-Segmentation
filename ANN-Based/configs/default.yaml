@@ -1,0 +1,43 @@
+# Default hyperparameters and experiment-level toggles.
+# All the configs
+
+experiment:
+  seed: 42
+  dataset: paris_lille  #This refers to the dataset config file
+
+normalization:
+  method: minmax #method: "minmax" | "standard" | "local_centering"
+  scale_xyz: true # if true, x,y,z are first recentered relative to each tile centroid
+  local_center_xyz: true
+
+split:
+  strategy: file_based   # "file_based" (follows canonical split) | "random"
+  random_test_size: 0.2  #only used if strategy == random
+  random_state: 42
+
+training:
+  num_epochs: 30 #30
+  batch_size: 512 #512 #256           #Paris-Lille:256 or 512, Vahiningen:4
+  
+  early_stopping:
+    enabled: false #Set to false to measure the performance of the models from a similar standpoint
+    patience: 5
+  optimizer: adam
+  architecture:
+    hidden_layers: [128, 64, 32]
+    activation: relu
+    dropout: 0.0 #set > 0 to enable
+
+uncertainty:
+  method: gda # Gaussian Discriminant Analysis
+  covariance_regularization: 1.0e-3   # 1e-6 is sufficient for balanced classes but too weak for minority classes (bollard, trash_can, pedestrian in Paris-Lille) where n_samples is roughly n_features. Raise further if nb03 logs "non-positive determinant" warnings.
+  include_xyz_in_gda: false # old config
+  fit_on_train_only: true # evaluated train rows on their own fitted distribution -> L-4
+
+pavpu:
+  k_neighbors: 30
+  uncertainty_threshold: null
+
+paths:
+  checkpoints_dir: checkpoints
+  results_dir: results
