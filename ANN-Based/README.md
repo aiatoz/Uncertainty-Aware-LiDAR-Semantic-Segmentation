@@ -11,7 +11,7 @@ configs/        # Hyperparameters and dataset config files
 data/           # Dataset paths and helper functiosn
 src/            # Entire reusable logic or modules
 notebooks/      # Notebooks per pipeline stages
-checkpoints/    # Model weights
+checkpoints/    # Model weights (ignored)
 results/        # Inference files and results (ignored)
 ProcessedData/  # Feature CSVs (ignored)
 RawDatasets/    # Raw point cloud files (ignored)
