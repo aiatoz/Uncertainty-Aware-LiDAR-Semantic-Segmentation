@@ -1,4 +1,4 @@
-# PNPP_v2 — uncertainty-aware PointNet++
+# PNPP_v2 - uncertainty-aware PointNet++
 
 PointNet++ (Qi et al., NeurIPS 2017, single-scale-grouping segmentation network) trained with and without the model-independent epistemic uncertaint `u_tilde` from the ANN pipeline.
 
