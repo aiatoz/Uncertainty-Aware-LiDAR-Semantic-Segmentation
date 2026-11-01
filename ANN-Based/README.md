@@ -1,6 +1,6 @@
 # Uncertainty-Aware Point Cloud Segmentation (ANN based experiments)
 
-This is the codebase for the paper "Role-based Effectiveness of an Epistemic Uncertainty Estimate in Training Models for Semantic Segmentation of 3D LiDAR Point Clouds". Its advised to run the models either on Linux or WSL, otherwise library compatibility issues may arise.
+This is the ANN codebase for the paper "Role-based Effectiveness of an Epistemic Uncertainty Estimate in Training Models for Semantic Segmentation of 3D LiDAR Point Clouds". Its advised to run the models either on Linux or WSL, otherwise library compatibility issues may arise.
 
 Before using the notebooks, kindly set the associated directories and subfolders for the datasets in `datasets.yaml`
 
