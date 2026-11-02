@@ -4,7 +4,7 @@ This is the codebase for the paper "Role-based Effectiveness of an Epistemic Unc
 
 # Notes:
 - Since our custom PNPP pipeline reuses some of the modules and intermediate files generated from the RandLA-Net pipeline, please follow the execution order: ANN, RandLA-Net, PNPP.
-- We have uploaded the code and the respective guidelines; please follow them to reproduce the results. Due to space limitations, we have not included the datasets and resulting files in this repository. The datasets can be downloaded from their official repositories or websites (these files were converted to CSV format using CloudCompare: https://www.cloudcompare.org/):
+- We have uploaded the code and the respective guidelines; please follow them to reproduce the results. Due to space limitations of GitHub, we have not included the datasets and resulting files in this repository. The datasets can be downloaded from their official repositories or websites (these files were converted to CSV format using CloudCompare: https://www.cloudcompare.org/):
 
     - AHN3: https://geotiles.citg.tudelft.nl/
     - Vaihingen: https://www.isprs.org/resources/datasets/benchmarks/UrbanSemLab/Default.aspx or https://www.kaggle.com/datasets/debobratachakraborty/vaihingen-point-cloud
