@@ -1,0 +1,13 @@
+dataset:
+  annFolder         : vaihingen
+  expectedTrainFiles: [area2]
+  expectedTestFiles : [area3]
+blocks:
+  blockSize : 60.0
+  numPoints : 16384
+model: # 16384 -> 2048 -> 512 -> 128 -> 32 points
+  saRadii   : [0.03, 0.08, 0.16, 0.32]
+training:
+  blocksPerEpoch : 1000
+labels:
+  metricExcludeRaw : []

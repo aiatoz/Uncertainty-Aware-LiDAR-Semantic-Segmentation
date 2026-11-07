@@ -1,0 +1,13 @@
+dataset:
+  annFolder         : ahn3
+  expectedTrainFiles: [28AN1_16, 28AZ1_13]
+  expectedTestFiles : [32CN2_11]
+blocks:
+  blockSize : 64.0
+  numPoints : 32768
+model:
+  saRadii   : [1.2, 3.2, 6.4, 12.8]
+training:
+  blocksPerEpoch : 2000
+labels:
+  metricExcludeRaw : []

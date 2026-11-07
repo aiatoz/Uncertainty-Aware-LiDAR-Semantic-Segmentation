@@ -1,0 +1,13 @@
+dataset:
+  annFolder         : toronto3d
+  expectedTrainFiles: [L001, L002, L004]
+  expectedTestFiles : [L003]
+blocks:
+  blockSize : 20.0
+  numPoints : 40960
+model: # 40960 -> 5120 -> 1280 -> 320 -> 80 points
+  saRadii   : [0.4, 1.0, 2.0, 4.0]
+training:
+  blocksPerEpoch : 2000
+labels:
+  metricExcludeRaw : [0] #unclassified

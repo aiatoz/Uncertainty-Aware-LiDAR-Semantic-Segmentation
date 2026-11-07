@@ -1,0 +1,13 @@
+dataset:
+  annFolder         : paris_lille
+  expectedTrainFiles: [Lille1_1, Lille1_2, Lille2]
+  expectedTestFiles : [Paris]
+blocks: # MLS, very dense, each 20 m block is randomly subsampled
+  blockSize : 20.0
+  numPoints : 40960
+model: # 40960 -> 5120 -> 1280 -> 320 -> 80 points
+  saRadii   : [0.4, 1.0, 2.0, 4.0]
+training:
+  blocksPerEpoch : 2000
+labels:
+  metricExcludeRaw : [0]

@@ -1,0 +1,59 @@
+paths:
+  annDataRoot : /mnt/d/Krishna/Research/UncertaintyEstimation/Code/ANNCodeRefined/ProcessedData
+  sharedCacheRoot : /mnt/d/Krishna/Research/UncertaintyEstimation/Code/RandLANet/RandLANet_UA/cache #This is necessary
+  cacheRoot   : cache
+  outputRoot  : runs
+
+#Column names in the ANN split CSVs
+columns:
+  xScaled     : x
+  yScaled     : y
+  zScaled     : z
+  uncertainty : __u_norm__
+  classIdx    : class_idx
+  rawLabel    : label
+  sourceFile  : __source_file__
+
+features:
+  zMode : file #z recentred per file
+
+labels:
+  trainIgnoreRaw   : []
+  metricExcludeRaw : []
+
+blocks:
+  cellsPerSide     : 4 # grid cell = blockSize / cellsPerSide
+  inferStrideCells : 2 # inference blocks overlap by half
+  minTrainPoints   : 2048
+  maxTrainRetries  : 20
+
+# PointNet++ SSG segmentation network official layout
+# saRatios are FPS ratios per level (official one is 8192 -> 1024 -> 256 -> 64 -> 16).
+# saRadii are in METRES and depend on point density, so every dataset file sets
+model:
+  saRatios        : [0.125, 0.25, 0.25, 0.25]
+  saRadii         : [0.4, 1.0, 2.0, 4.0]
+  saNsample       : [32, 32, 32, 32]
+  saMlps          : [[32, 32, 64], [64, 64, 128], [128, 128, 256], [256, 256, 512]]
+  fpMlps          : [[256, 256], [256, 256], [256, 128], [128, 128, 128]]
+  head            : [128]
+  dropout         : 0.5
+  bnMomentum      : 0.1
+  normalizeRelPos : true #local coordinates divided by the ball radius
+
+training:
+  epochs       : 50 # an epoch = blocksPerEpoch blocks (same as RandLA-Net)
+  batchBlocks  : 8      #4 #This is the batch sizew technically
+  learningRate : 0.001
+  lrSchedule   : cosine
+  lrMin        : 1.0e-6
+  lrDecay      : 0.95 # only used by the exponential schedule
+  weightDecay  : 1.0e-4
+  classWeights : none  # none | inverse | inverse_sqrt
+  rotateZ      : true
+  numWorkers   : 8
+
+evaluation:
+  inferBatchBlocks  : 4
+  pavpuK            : 30
+  accuracyThreshold : 0.5
